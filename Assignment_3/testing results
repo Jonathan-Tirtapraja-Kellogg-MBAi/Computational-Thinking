@@ -1,0 +1,29 @@
+C:\Python311\python.exe "C:\Users\mjona\Downloads\Assignment 3\Assignment 3\Assignment3.py" 
+> hi there
+["I don't understand"]
+> what datasets do you know about
+['area', 'population', 'median age', 'life expectancy', 'gdp']
+> which country has the highest area?
+['russia', '17,098,242']
+> which country has the highest gdp
+['china', '$22,526,502,000,000']
+> show me all the data for
+['No answers']
+> show me all the data for chian
+['No answers']
+> show me all the data for china
+['area: rank 5, value 9,596,960', 'population: rank 1, value 1,397,897,720', 'median age: rank 62, value 38.4', 'life expectancy: rank 107, value 76.31', 'gdp: rank 1, value $22,526,502,000,000']
+> what is indonesia ranked for area
+['16']
+> whichh country is ranked number 7 for population
+["I don't understand"]
+> which country is ranked number 8 for population
+['bangladesh']
+> what kinds of questions do you understand
+['which country is ranked number _ for %', 'what is % ranked for %', 'which countries do you know about', 'what kinds of questions do you understand', 'what datasets do you know about', 'which country has the highest %', 'show me all the data for %', 'bye']
+> what datasets do you know about
+['area', 'population', 'median age', 'life expectancy', 'gdp']
+> bye
+Goodbye!
+
+Process finished with exit code 0

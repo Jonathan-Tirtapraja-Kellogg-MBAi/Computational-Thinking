@@ -6,7 +6,7 @@ from data import features
     
 def country_by_rank(matches):
     """Takes a list of matches as input - specifically one that holds a rank
-        and a feature, like 'population.' Finds the country with that rank 
+        and a feature, like 'population.' Finds the country with that rank
         using the feature and returns it in a list.
 
         Args: matches - a list of strings resulting from a call to match. It
@@ -24,7 +24,6 @@ def country_by_rank(matches):
             if r == rank:
                 return [country]
     return []
-
 
 def rank_by_country(matches):
     """Takes a list of matches as input - specifically one that holds a country
@@ -48,9 +47,8 @@ def rank_by_country(matches):
     if country not in data:
         return []
     return [data[country][0]]
-    
 
-def list_countries():
+def list_countries(unused):
     """Takes an input that is unused (empty list resulting from a call to match).
         Constructs a list of countries by looking at the keys from one of the
         dictionaries. You can use any of the dictionaries for this. I know
@@ -64,7 +62,7 @@ def list_countries():
     any_feature = next(iter(features))
     return sorted(list(features[any_feature].keys()))
 
-def list_patterns():
+def list_patterns(unused):
     """Takes an input that is unused (empty list resulting from a call to match).
         Constructs a list of the patterns from the pa_list and returns it.
 
@@ -77,7 +75,8 @@ def list_patterns():
         out.append(" ".join(pat))
     return out
 
-def bye_action():
+
+def bye_action(unused):
     """This action function gets called when the user writes 'bye'.
         It raises KeyboardInterrupt in order to break out of the query loop.
 
@@ -85,7 +84,8 @@ def bye_action():
     """
     raise KeyboardInterrupt
 
-def list_data_set():
+
+def list_data_set(unused):
     """Returns the names of all datasets stored in the features dictionary.
         This answers the question: "What datasets does the bot know about?"
         Each dataset corresponds to a key in the global features dictionary.
@@ -95,6 +95,24 @@ def list_data_set():
     return list(features.keys())
 
 def max_country(matches):
+    """
+        Finds the top-ranked country for a given dataset (feature).
+
+        This function expects `matches` to contain at least one element
+        representing the name of a dataset (e.g., "population", "gdp").
+        It looks up the dataset in the global `features` dictionary, then
+        searches for the country whose rank is "1". If found, it returns
+        the country and its associated value.
+
+        Args:
+            matches - a list of strings resulting from a call to match. It
+            holds a country's name
+
+        Returns:
+            list[str]: [country, value] for the top-ranked entry in that dataset.
+                       Returns an empty list if the dataset does not exist
+                       or no rank "1" entry is found.
+    """
     if not matches or len(matches) < 1:
         return []
     feature = matches[0].lower()
@@ -144,7 +162,6 @@ def all_data_country(matches):
 
 ##########Pattern, Action list###############################
 
-
 pa_list = [(str.split("which country is ranked number _ for %"), country_by_rank),
            (str.split("what is % ranked for %"), rank_by_country),
            (str.split("which countries do you know about"), list_countries),
@@ -153,7 +170,6 @@ pa_list = [(str.split("which country is ranked number _ for %"), country_by_rank
            (str.split("which country has the highest %"), max_country),
            (str.split("show me all the data for %"), all_data_country),
            (["bye"], bye_action)]
-
 
 def search_pa_list(src):
     """Takes source, finds matching pattern and calls corresponding action. If it finds
@@ -171,17 +187,11 @@ def search_pa_list(src):
         match_result = match(pattern, src)
         if match_result is None:
             continue
-        answer = []
-        if "%" in pattern or "_" in pattern:
-            answer = action(match_result)
-        else:
-            answer = action()
+        answer = action(match_result)
         if not answer:
             return ["No answers"]
         return answer
     return ["I don't understand"]
-
-
 
 def query_loop():
     """Query_lop asks the user for input, then "cleans" that input
@@ -204,22 +214,17 @@ def query_loop():
 
     pass
 
-
 if __name__ == "__main__":
     assert country_by_rank(["2", "population"]) == ["india"], "country_by_rank test"
     assert rank_by_country(["united states", "area"]) == ["4"], "rank_by_country test"
     assert search_pa_list(["hi", "there"]) == ["I don't understand"], "search_pa_list test 1"
     assert search_pa_list(["which", "country", "is", "ranked", "number", "2", "for",
-                                                   "median", "age"]) == ["japan"], "search_pa_list test 2"
-    assert search_pa_list(["what", "is", "XYZ", "ranked", "for", "population"]) == ["No answers"], "search_pa_list test 3"
-    assert search_pa_list(["which", "country", "has", "the", "highest", "area"]) == ["russia", "17,098,242"], "search_pa_list test 4"
-    assert search_pa_list(["which", "country", "has", "the", "highest", "population"]) == ["china", "1,397,897,720"], "search_pa_list test 5"
-    #uncomment the line below to interact with your chatbot
+                           "median", "age"]) == ["japan"], "search_pa_list test 2"
+    assert search_pa_list(["what", "is", "XYZ", "ranked", "for", "population"]) == [
+        "No answers"], "search_pa_list test 3"
+    assert search_pa_list(["which", "country", "has", "the", "highest", "area"]) == ["russia",
+                                                                                     "17,098,242"], "search_pa_list test 4"
+    assert search_pa_list(["which", "country", "has", "the", "highest", "population"]) == ["china",
+                                                                                           "1,397,897,720"], "search_pa_list test 5"
+    # uncomment the line below to interact with your chatbot
     query_loop()
-    
-
-
-  
-
-    
-
